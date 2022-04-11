@@ -68,10 +68,32 @@ const logout = () => {
     signOut(auth);
 };
 
+const getSlots = async () => {
+	try {
+    const q = query(collection(db, "slots"));
+    const docs = await getDocs(q);
+		return docs; 
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
+const saveAppointment = async (booking) => {
+	try {
+		await addDoc(collection(db, "appointments"), booking);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
 export {
     auth,
     db,
     logInWithGoogle,
     logInWithEmailAndPassword,
     logout,
+		getSlots,
+		saveAppointment
 };
